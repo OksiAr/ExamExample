@@ -12,7 +12,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="38*"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -44,5 +44,9 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Button Margin="5" x:Name="AddBnt" Click="AddBnt_Click">Добавить</Button>
+            <Button Margin="5" x:Name="EditBtn" Click="EditBtn_Click">Редактировать</Button>
+        </StackPanel>
     </Grid>
 </Page>

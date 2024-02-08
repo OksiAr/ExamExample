@@ -14,6 +14,6 @@ namespace ExampleExam
     /// </summary>
     public partial class App : Application
     {
-        public static ProductInStockOkEntities db = new ProductInStockOkEntities();
+        public static ProductInStockOkEntities1 db = new ProductInStockOkEntities1();
     }
 }

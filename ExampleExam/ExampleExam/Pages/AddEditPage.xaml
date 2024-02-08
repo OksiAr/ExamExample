@@ -1,0 +1,38 @@
+﻿<Page x:Class="ExampleExam.Pages.AddEditPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ExampleExam.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AddEditPage">
+
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            
+            <StackPanel Margin="5" Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Margin="5">Сериыйный номер</TextBlock>
+                <TextBox IsEnabled="False" Text="{Binding SerialNumber}" Width="150" Height="35"  x:Name="SerialNumberTb"></TextBox>
+            </StackPanel>
+            
+            <StackPanel Margin="5" Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Margin="5">Наименование</TextBlock>
+                <TextBox Text="{Binding Name}" Width="150" Height="50" TextWrapping="Wrap"></TextBox>
+            </StackPanel>
+            
+            <StackPanel Margin="5" Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Margin="5">Ед.измерения</TextBlock>
+                <ComboBox SelectedItem="{Binding Unit}" Width="150" x:Name="UnitCb"></ComboBox>
+            </StackPanel>
+            
+            <StackPanel Margin="5" Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Margin="5">Количесво</TextBlock>
+                <TextBox x:Name="CountTb" IsEnabled="False" Text="{Binding Count}" Width="150" ></TextBox>
+            </StackPanel>
+            <StackPanel>
+                <Button x:Name="SaveBtn" Click="SaveBtn_Click">Сохранить</Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

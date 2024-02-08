@@ -13,10 +13,10 @@ namespace ExampleExam.Components
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ProductInStockOkEntities : DbContext
+    public partial class ProductInStockOkEntities1 : DbContext
     {
-        public ProductInStockOkEntities()
-            : base("name=ProductInStockOkEntities")
+        public ProductInStockOkEntities1()
+            : base("name=ProductInStockOkEntities1")
         {
         }
     

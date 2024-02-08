@@ -79,5 +79,23 @@ namespace ExampleExam.Pages
             
 
         }
+
+        private void AddBnt_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AddEditPage(new Product()));
+        }
+
+        private void EditBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var selProduct = ProductList.SelectedItem as Product;
+            if (selProduct != null)
+            {
+                NavigationService.Navigate(new AddEditPage(selProduct));
+            }
+            else
+            {
+                MessageBox.Show("Ничего не выбрано!");
+            }
+        }
     }
 }
