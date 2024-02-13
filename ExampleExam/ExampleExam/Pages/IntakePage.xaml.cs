@@ -23,6 +23,12 @@ namespace ExampleExam.Pages
         public IntakePage()
         {
             InitializeComponent();
+            IntakeList.ItemsSource = App.db.Intake.ToList();
+        }
+
+        private void AddIntakeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ProductIntakePage());
         }
     }
 }

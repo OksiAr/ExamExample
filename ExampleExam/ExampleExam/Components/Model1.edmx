@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище ProductInStockOkModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище ProductInStockOkModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Intake">
           <Key>
             <PropertyRef Name="Id" />
@@ -22,6 +22,7 @@
           <Property Name="UnitId" Type="int" Nullable="false" />
           <Property Name="Count" Type="int" Nullable="false" />
           <Property Name="IsDelete" Type="bit" />
+          <Property Name="Cost" Type="decimal" Precision="7" Scale="2" />
         </EntityType>
         <EntityType Name="ProductIntake">
           <Key>
@@ -104,8 +105,7 @@
             <End Role="ProductIntake" EntitySet="ProductIntake" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ProductInStockOkModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -117,19 +117,6 @@
           <Property Name="DateIntake" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="ProductIntake" Relationship="Self.FK_ProductIntake_Intake" FromRole="Intake" ToRole="ProductIntake" />
         </EntityType>
-        <EntityType Name="Product">
-          <Key>
-            <PropertyRef Name="SerialNumber" />
-          </Key>
-          <Property Name="SerialNumber" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MainImage" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="UnitId" Type="Int32" Nullable="false" />
-          <Property Name="Count" Type="Int32" Nullable="false" />
-          <Property Name="IsDelete" Type="Boolean" />
-          <NavigationProperty Name="Unit" Relationship="Self.FK_Product_Unit" FromRole="Product" ToRole="Unit" />
-          <NavigationProperty Name="ProductIntake" Relationship="Self.FK_ProductIntake_Product" FromRole="Product" ToRole="ProductIntake" />
-        </EntityType>
         <EntityType Name="ProductIntake">
           <Key>
             <PropertyRef Name="Id" />
@@ -139,7 +126,7 @@
           <Property Name="SerialNumber" Type="Int32" Nullable="false" />
           <Property Name="Count" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Intake" Relationship="Self.FK_ProductIntake_Intake" FromRole="ProductIntake" ToRole="Intake" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_ProductIntake_Product" FromRole="ProductIntake" ToRole="Product" />
+          <NavigationProperty Name="Product" Relationship="ProductInStockOkModel.FK_ProductIntake_Product" FromRole="ProductIntake" ToRole="Product" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -157,7 +144,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_Product_Unit" FromRole="Unit" ToRole="Product" />
+          <NavigationProperty Name="Product" Relationship="ProductInStockOkModel.FK_Product_Unit" FromRole="Unit" ToRole="Product" />
         </EntityType>
         <Association Name="FK_ProductIntake_Intake">
           <End Role="Intake" Type="Self.Intake" Multiplicity="1" />
@@ -171,9 +158,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="ProductInStockOkEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Intake" EntityType="Self.Intake" />
+          <EntitySet Name="ProductIntake" EntityType="Self.ProductIntake" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Unit" EntityType="Self.Unit" />
+          <AssociationSet Name="FK_ProductIntake_Intake" Association="Self.FK_ProductIntake_Intake">
+            <End Role="Intake" EntitySet="Intake" />
+            <End Role="ProductIntake" EntitySet="ProductIntake" />
+          </AssociationSet>
+          <EntitySet Name="Product" EntityType="ProductInStockOkModel.Product" />
+          <AssociationSet Name="FK_Product_Unit" Association="ProductInStockOkModel.FK_Product_Unit">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductIntake_Product" Association="ProductInStockOkModel.FK_ProductIntake_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductIntake" EntitySet="ProductIntake" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="SerialNumber" />
+          </Key>
+          <Property Name="SerialNumber" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="MainImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="UnitId" Type="Int32" Nullable="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <Property Name="IsDelete" Type="Boolean" />
+          <Property Name="Cost" Type="Decimal" Precision="7" Scale="2" />
+          <NavigationProperty Name="Unit" Relationship="ProductInStockOkModel.FK_Product_Unit" FromRole="Product" ToRole="Unit" />
+          <NavigationProperty Name="ProductIntake" Relationship="ProductInStockOkModel.FK_ProductIntake_Product" FromRole="Product" ToRole="ProductIntake" />
+        </EntityType>
         <Association Name="FK_Product_Unit">
-          <End Role="Unit" Type="Self.Unit" Multiplicity="1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <End Type="ProductInStockOkModel.Unit" Role="Unit" Multiplicity="1" />
+          <End Type="ProductInStockOkModel.Product" Role="Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Unit">
               <PropertyRef Name="Id" />
@@ -184,8 +204,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductIntake_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="ProductIntake" Type="Self.ProductIntake" Multiplicity="*" />
+          <End Type="ProductInStockOkModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="ProductInStockOkModel.ProductIntake" Role="ProductIntake" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="SerialNumber" />
@@ -195,25 +215,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ProductInStockOkEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Intake" EntityType="Self.Intake" />
-          <EntitySet Name="Product" EntityType="Self.Product" />
-          <EntitySet Name="ProductIntake" EntityType="Self.ProductIntake" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="Unit" EntityType="Self.Unit" />
-          <AssociationSet Name="FK_ProductIntake_Intake" Association="Self.FK_ProductIntake_Intake">
-            <End Role="Intake" EntitySet="Intake" />
-            <End Role="ProductIntake" EntitySet="ProductIntake" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Product_Unit" Association="Self.FK_Product_Unit">
-            <End Role="Unit" EntitySet="Unit" />
-            <End Role="Product" EntitySet="Product" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductIntake_Product" Association="Self.FK_ProductIntake_Product">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="ProductIntake" EntitySet="ProductIntake" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -225,18 +226,6 @@
               <MappingFragment StoreEntitySet="Intake">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="DateIntake" ColumnName="DateIntake" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Product">
-            <EntityTypeMapping TypeName="ProductInStockOkModel.Product">
-              <MappingFragment StoreEntitySet="Product">
-                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="MainImage" ColumnName="MainImage" />
-                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
-                <ScalarProperty Name="Count" ColumnName="Count" />
-                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -266,6 +255,19 @@
               <MappingFragment StoreEntitySet="Unit">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="ProductInStockOkModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+                <ScalarProperty Name="MainImage" ColumnName="MainImage" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

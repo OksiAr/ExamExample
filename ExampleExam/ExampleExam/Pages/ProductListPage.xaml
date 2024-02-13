@@ -47,6 +47,7 @@
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Button Margin="5" x:Name="AddBnt" Click="AddBnt_Click">Добавить</Button>
             <Button Margin="5" x:Name="EditBtn" Click="EditBtn_Click">Редактировать</Button>
+            <Button Margin="5" x:Name="intakeBtn" Click="intakeBtn_Click" >Поставки</Button>
         </StackPanel>
     </Grid>
 </Page>

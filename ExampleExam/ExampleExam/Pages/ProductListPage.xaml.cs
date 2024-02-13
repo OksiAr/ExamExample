@@ -97,5 +97,10 @@ namespace ExampleExam.Pages
                 MessageBox.Show("Ничего не выбрано!");
             }
         }
+
+        private void intakeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new IntakePage());
+        }
     }
 }

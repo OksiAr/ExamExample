@@ -6,14 +6,14 @@
     <edmx:Diagrams>
       <Diagram DiagramId="8cdd4b47c0174aabb1cd2c8dbf7dbb51" Name="Diagram1">
         <EntityTypeShape EntityType="ProductInStockOkModel.Intake" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProductInStockOkModel.Product" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="ProductInStockOkModel.ProductIntake" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ProductInStockOkModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ProductInStockOkModel.Unit" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
         <AssociationConnector Association="ProductInStockOkModel.FK_ProductIntake_Intake" ManuallyRouted="false" />
-        <AssociationConnector Association="ProductInStockOkModel.FK_Product_Unit" ManuallyRouted="false" />
-        <AssociationConnector Association="ProductInStockOkModel.FK_ProductIntake_Product" ManuallyRouted="false" />
-      </Diagram>
+        <EntityTypeShape EntityType="ProductInStockOkModel.Product" Width="1.5" PointX="3" PointY="0.75" />
+        <AssociationConnector Association="ProductInStockOkModel.FK_Product_Unit" />
+        <AssociationConnector Association="ProductInStockOkModel.FK_ProductIntake_Product" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

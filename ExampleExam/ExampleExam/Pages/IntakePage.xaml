@@ -10,13 +10,37 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="13*"/>
+            <RowDefinition Height="77*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Margin="5">Продукт</TextBlock>
-            <ComboBox Width="150" x:Name="ProductCb"></ComboBox>
-        </StackPanel>
-        <WrapPanel Grid.Row="1" Name="ProductIntakeWp"></WrapPanel>
+        <Button x:Name="AddIntakeBtn" Click="AddIntakeBtn_Click">Создать новую поставку</Button>
+        <ListView x:Name="IntakeList" Grid.Row="1">
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Header="№" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                        <GridViewColumn Header="Дата поставки" DisplayMemberBinding="{Binding DateIntake , StringFormat=dd.MM.yyyy}"></GridViewColumn>
+                        <GridViewColumn>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ListView ItemsSource="{Binding ProductIntake}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding Product.Name}"></TextBlock>
+                                                    <TextBlock Margin="5 0" Text="{Binding Count}"></TextBlock>
+                                                    <TextBlock Text="{Binding AllPrice}"></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Полная стоимость" DisplayMemberBinding="{Binding FullPrice}"></GridViewColumn>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Page>
